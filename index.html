@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Michelle W. &middot; benches you can run</title>
-<meta name="description" content="Three live benches. Each proves one specific failure in an automated workflow, runs in your browser, and states what it does not catch.">
+<meta name="description" content="Three live benches and a study of 1,999 n8n templates. Each proves one specific failure in an automated workflow, runs in your browser, and states what it does not catch.">
 <link rel="canonical" href="https://michegz.github.io/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23EDF1F2'/%3E%3Crect x='5' y='8' width='22' height='3' fill='%23101A1F'/%3E%3Crect x='5' y='14.5' width='22' height='3' fill='%23B3301C'/%3E%3Crect x='5' y='21' width='22' height='3' fill='%23101A1F'/%3E%3C/svg%3E">
 <meta property="og:type" content="website">
@@ -108,13 +108,13 @@ a{color:var(--stamp)}
 
 <header class="masthead">
   <p class="masthead-id">Michelle W. &middot; Lafayette, Louisiana</p>
-  <p class="masthead-state">Three benches &middot; nothing to install</p>
+  <p class="masthead-state">Three benches and a study &middot; nothing to install</p>
 </header>
 
 <section class="hero">
   <div>
     <h1 class="hero-head">Anyone can say they<em>Find these things</em></h1>
-    <p class="hero-sub">So here are three, running. Each one proves a single specific way an automated workflow goes wrong, in your browser, with nothing to install and no signup.</p>
+    <p class="hero-sub">So here are three, running. Each one proves a single specific way an automated workflow goes wrong, in your browser, with nothing to install and no signup. <strong>Below them is a study of 1,999 published workflows, with its dataset attached.</strong></p>
     <p class="hero-sub"><strong>Every one of them also tells you what it does not catch.</strong> That part is not modesty. A control that claims to cover more than it does is how the thing fails in month two.</p>
   </div>
   <div class="who">
@@ -168,6 +168,29 @@ a{color:var(--stamp)}
           <dt>Does not</dt><dd class="limit">Server-side pricing fixes the number and nothing else about who may open the job or replay the link.</dd>
         </dl>
         <p class="bench-go">Run it &rarr;</p>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<section class="band">
+  <div class="band-head">
+    <h2 class="band-title">The study</h2>
+    <p class="band-note">Not a demo. Original research, published with the dataset so you can check it.</p>
+  </div>
+  <div class="benches">
+
+    <a class="bench" href="https://michegz.github.io/n8n-template-study/">
+      <span class="bench-n">04</span>
+      <div class="bench-body">
+        <h3 class="bench-title">I scanned 1,999 published n8n templates</h3>
+        <p class="bench-claim">36,234 nodes, 5,665 findings. <strong>78% make network calls with no retry and no error branch, so when one fails nothing tells you.</strong> 129 of the 1,999 were clean.</p>
+        <dl class="bench-meta">
+          <dt>Proves</dt><dd>The workflows most people start from are demonstrations, and nothing on the canvas tells you the difference.</dd>
+          <dt>Does not</dt><dd class="limit">Static analysis only. It never ran a workflow, so it cannot see wrong logic, a changed API contract, or an invalid credential.</dd>
+        </dl>
+        <p class="bench-go">Read it, and run recount.py against the raw data &rarr;</p>
       </div>
     </a>
 
