@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Michelle W. &middot; benches you can run</title>
+<meta name="description" content="Three live benches. Each proves one specific failure in an automated workflow, runs in your browser, and states what it does not catch.">
+<link rel="canonical" href="https://michegz.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23EDF1F2'/%3E%3Crect x='5' y='8' width='22' height='3' fill='%23101A1F'/%3E%3Crect x='5' y='14.5' width='22' height='3' fill='%23B3301C'/%3E%3Crect x='5' y='21' width='22' height='3' fill='%23101A1F'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://michegz.github.io/">
+<meta property="og:site_name" content="Michelle W.">
+<meta property="og:title" content="Three failures you can reproduce in your browser.">
+<meta property="og:description" content="Each bench proves one specific way an automated workflow breaks, runs with nothing installed, and says what it does not catch.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Three failures you can reproduce in your browser.">
+<meta name="twitter:description" content="Each bench proves one specific way an automated workflow breaks, runs with nothing installed, and says what it does not catch.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDF1F2;--grid:#E2E8E9;--rule:#C3CFD2;
+  --ink:#101A1F;--ink-soft:#5B6E75;--stamp:#2A4B8D;--alarm:#B3301C;
+  --pad:clamp(1.25rem,4vw,3rem);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background-color:var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:16px;line-height:1.55;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 var(--pad)}
+a{color:var(--stamp)}
+:focus-visible{outline:2px solid var(--stamp);outline-offset:2px}
+
+.masthead{border-bottom:1px solid var(--ink);padding:14px 0 12px;display:flex;flex-wrap:wrap;gap:12px;align-items:baseline;justify-content:space-between}
+.masthead-id{font-family:"IBM Plex Mono",monospace;font-size:.72rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;margin:0}
+.masthead-state{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin:0}
+
+.hero{padding:clamp(2.5rem,7vw,4.5rem) 0 clamp(1.75rem,4vw,2.75rem);display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(1.5rem,5vw,3.5rem);align-items:end}
+.hero-head{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 118;font-weight:700;font-size:clamp(2rem,5.6vw,3.6rem);line-height:.98;letter-spacing:-.015em;margin:0 0 1.1rem;text-transform:uppercase}
+.hero-head em{font-style:normal;display:block;font-variation-settings:"wdth" 78;color:var(--stamp)}
+.hero-sub{margin:0 0 .9rem;max-width:50ch;color:var(--ink-soft);font-size:1.02rem}
+.hero-sub:last-child{margin-bottom:0}
+.hero-sub strong{color:var(--ink);font-weight:600}
+.who{border:1px solid var(--ink);background:rgba(255,255,255,.55);padding:1rem 1.15rem}
+.who p{margin:0 0 .5rem;font-size:.92rem}
+.who p:last-child{margin:0}
+.who-name{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 88;font-weight:700;font-size:1.15rem;text-transform:uppercase;letter-spacing:.01em}
+.who-line{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.who-link{font-family:"IBM Plex Mono",monospace;font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600;display:inline-block;margin-top:.4rem}
+
+.band{border-top:1px solid var(--ink);padding:clamp(1.75rem,4vw,2.5rem) 0}
+.band-head{display:flex;flex-wrap:wrap;gap:.75rem 1.5rem;align-items:baseline;justify-content:space-between;margin-bottom:1.5rem}
+.band-title{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 82;font-weight:700;font-size:clamp(1.1rem,2.6vw,1.5rem);text-transform:uppercase;letter-spacing:.02em;margin:0}
+.band-note{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.08em;color:var(--ink-soft);margin:0;max-width:52ch}
+
+.benches{display:grid;gap:1.1rem}
+.bench{
+  border:1px solid var(--ink);background:rgba(255,255,255,.62);
+  display:grid;grid-template-columns:5.5rem minmax(0,1fr);
+  text-decoration:none;color:inherit;transition:background .2s ease;
+}
+.bench:hover,.bench:focus-visible{background:#fff}
+.bench-n{
+  border-right:1px solid var(--ink);display:flex;align-items:center;justify-content:center;
+  font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 72;font-weight:700;
+  font-size:2.1rem;line-height:1;color:var(--ink-soft);
+}
+.bench:hover .bench-n{color:var(--stamp)}
+.bench-body{padding:1.1rem 1.25rem}
+.bench-title{font-family:"Archivo",sans-serif;font-variation-settings:"wdth" 88;font-weight:700;font-size:1.12rem;text-transform:uppercase;letter-spacing:.01em;margin:0 0 .5rem}
+.bench-claim{margin:0 0 .75rem;font-size:.97rem;color:var(--ink-soft)}
+.bench-claim strong{color:var(--ink);font-weight:600}
+.bench-meta{display:grid;grid-template-columns:6.5rem minmax(0,1fr);gap:.3rem .75rem;font-size:.86rem;padding-top:.7rem;border-top:1px dotted var(--rule)}
+.bench-meta dt{font-family:"IBM Plex Mono",monospace;font-size:.64rem;letter-spacing:.11em;text-transform:uppercase;color:var(--ink-soft);padding-top:.15rem}
+.bench-meta dd{margin:0;color:var(--ink-soft)}
+.bench-meta dd.limit{color:var(--alarm)}
+.bench-go{font-family:"IBM Plex Mono",monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--stamp);margin:.8rem 0 0}
+
+.rules{margin:0;padding:0;list-style:none;display:grid;gap:.8rem}
+.rules li{display:grid;grid-template-columns:1.6rem minmax(0,1fr);gap:.6rem;align-items:start}
+.rules span{font-family:"IBM Plex Mono",monospace;font-size:.72rem;font-weight:600;color:var(--stamp);padding-top:.2rem}
+.rules p{margin:0;color:var(--ink-soft);font-size:.95rem}
+.rules b{color:var(--ink);font-weight:600}
+
+.colophon{border-top:1px solid var(--ink);padding:1.5rem 0 3rem}
+.sig{margin:0 0 .5rem;font-size:.95rem}
+.sig strong{font-weight:600}
+.sig-link{font-family:"IBM Plex Mono",monospace;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+.credit{margin:.75rem 0 0;font-size:.82rem;color:var(--ink-soft);max-width:62ch}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:minmax(0,1fr);gap:1.75rem;align-items:start}
+  .bench{grid-template-columns:minmax(0,1fr)}
+  .bench-n{border-right:0;border-bottom:1px solid var(--ink);justify-content:flex-start;padding:.7rem 1.25rem;font-size:1.5rem}
+  .bench-meta{grid-template-columns:minmax(0,1fr);gap:.15rem}
+  .bench-meta dt{padding-top:.5rem}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none !important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="masthead">
+  <p class="masthead-id">Michelle W. &middot; Lafayette, Louisiana</p>
+  <p class="masthead-state">Three benches &middot; nothing to install</p>
+</header>
+
+<section class="hero">
+  <div>
+    <h1 class="hero-head">Anyone can say they<em>Find these things</em></h1>
+    <p class="hero-sub">So here are three, running. Each one proves a single specific way an automated workflow goes wrong, in your browser, with nothing to install and no signup.</p>
+    <p class="hero-sub"><strong>Every one of them also tells you what it does not catch.</strong> That part is not modesty. A control that claims to cover more than it does is how the thing fails in month two.</p>
+  </div>
+  <div class="who">
+    <p class="who-name">Michelle W.</p>
+    <p class="who-line">Automation engineer</p>
+    <p>Twenty years of business operations behind the code: dispatch, inventory, payroll across four locations, and an invoicing system that replaced a manual spreadsheet process end to end.</p>
+    <p><a class="who-link" href="https://www.upwork.com/freelancers/~01b59471ec1e32fbdb">Hire me on Upwork</a></p>
+  </div>
+</section>
+
+<section class="band">
+  <div class="band-head">
+    <h2 class="band-title">The benches</h2>
+    <p class="band-note">Thirty seconds each. Break them if you can.</p>
+  </div>
+  <div class="benches">
+
+    <a class="bench" href="https://michegz.github.io/guardrail-bench/">
+      <span class="bench-n">01</span>
+      <div class="bench-body">
+        <h3 class="bench-title">An LLM step returns a string, not a contract</h3>
+        <p class="bench-claim">Nine hostile model outputs fired at a real validation node. <strong>Seven get held for a human with a named reason. Two are supposed to pass. Nothing reaches the destination in a shape it cannot handle.</strong></p>
+        <dl class="bench-meta">
+          <dt>Proves</dt><dd>Shape validation on an AI step catches the malformed outputs that otherwise write nonsense into a CRM.</dd>
+          <dt>Does not</dt><dd class="limit">Prompt injection inside a valid field is still a well-shaped string, and an allowlist has no opinion about a confidently wrong category.</dd>
+        </dl>
+        <p class="bench-go">Run it &rarr;</p>
+      </div>
+    </a>
+
+    <a class="bench" href="https://michegz.github.io/agent-authz-bench/">
+      <span class="bench-n">02</span>
+      <div class="bench-body">
+        <h3 class="bench-title">Two endpoints checked the caller, one did not</h3>
+        <p class="bench-claim">An agent tries the guarded calls, gets 403 twice, then finds the one that never asks whose reservation it is. <strong>Somebody loses their place so a stranger gains one.</strong></p>
+        <dl class="bench-meta">
+          <dt>Proves</dt><dd>Authorization on most of your endpoints is authorization on none of them.</dd>
+          <dt>Does not</dt><dd class="limit">One check on one endpoint is not an audit, and nothing here stops a compromised session.</dd>
+        </dl>
+        <p class="bench-go">Run it &rarr;</p>
+      </div>
+    </a>
+
+    <a class="bench" href="https://michegz.github.io/price-in-the-url/">
+      <span class="bench-n">03</span>
+      <div class="bench-body">
+        <h3 class="bench-title">The price is in the URL, so it is not yours</h3>
+        <p class="bench-claim">Edit the price in a prefilled payment link and authorize it. <strong>A $450 job gets paid at $50, with a genuine signature on file and nothing on the office screen that looks wrong.</strong></p>
+        <dl class="bench-meta">
+          <dt>Proves</dt><dd>Hidden and read-only are properties of a browser, not of your money. Build the charge server side.</dd>
+          <dt>Does not</dt><dd class="limit">Server-side pricing fixes the number and nothing else about who may open the job or replay the link.</dd>
+        </dl>
+        <p class="bench-go">Run it &rarr;</p>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<section class="band">
+  <div class="band-head">
+    <h2 class="band-title">How these are built</h2>
+    <p class="band-note">The rules are the point. Anything else is a screenshot.</p>
+  </div>
+  <ul class="rules">
+    <li><span>01</span><p><b>It has to run, not describe.</b> A screenshot proves nothing and a case study proves less. If you cannot try it, it is not on this page.</p></li>
+    <li><span>02</span><p><b>One claim per bench.</b> Each page proves a single specific failure and its fix. Nothing here is a general security product or a scanner.</p></li>
+    <li><span>03</span><p><b>The limits are published.</b> Every bench has a section saying what it does not catch, written before anyone asked.</p></li>
+    <li><span>04</span><p><b>The code on the page is the code that ran.</b> Each bench prints its control function from that function's own source, so what you read cannot drift from what just executed.</p></li>
+    <li><span>05</span><p><b>Where a bench cites the outside world, every line carries its source.</b> Bench 02 also ships a script that checks each quotation against the sources' raw HTML and fails if one has drifted.</p></li>
+  </ul>
+</section>
+
+<footer class="colophon">
+  <p class="sig">Built by <strong>Michelle W.</strong>, automation engineer, Lafayette, Louisiana.
+  I build workflow automations and the failure paths that go with them.
+  <a class="sig-link" href="https://www.upwork.com/freelancers/~01b59471ec1e32fbdb">Hire me on Upwork</a></p>
+  <p class="credit">No analytics, no network calls, no data collected on any of these pages. The scenarios, names and numbers inside the benches are invented; each page says so. Source for all three is public on <a href="https://github.com/michegz">GitHub</a>.</p>
+</footer>
+
+</div>
+</body>
+</html>
