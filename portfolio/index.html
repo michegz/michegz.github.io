@@ -116,7 +116,7 @@ a{color:var(--stamp)}
 
 <section class="hero">
   <div>
-    <h1 class="hero-head">Four projects.<em>All four run.</em></h1>
+    <h1 class="hero-head">Six projects.<em>All six run.</em></h1>
     <p class="hero-sub">This is the long version. Each entry below is the whole write-up: what breaks, what I built, what it proves, and where it stops. <strong>Every one of them opens in your browser in about thirty seconds, with nothing to install and no signup.</strong></p>
     <p class="hero-sub">Three are live benches. One is a study of 1,999 published workflows that ships its own raw data and the script that rebuilds every number in it.</p>
   </div>
@@ -134,7 +134,9 @@ a{color:var(--stamp)}
     <li><a href="#p01"><span class="toc-n">01</span><span class="toc-t">Nine ways an LLM step breaks a workflow</span><span class="toc-k">Live bench</span></a></li>
     <li><a href="#p02"><span class="toc-n">02</span><span class="toc-t">Two endpoints checked the caller, one did not</span><span class="toc-k">Live bench</span></a></li>
     <li><a href="#p03"><span class="toc-n">03</span><span class="toc-t">I put the price in the URL and paid $50 for a $450 job</span><span class="toc-k">Live bench</span></a></li>
-    <li><a href="#p04"><span class="toc-n">04</span><span class="toc-t">I scanned 1,999 published n8n templates</span><span class="toc-k">Study, data attached</span></a></li>
+    <li><a href="#p04"><span class="toc-n">04</span><span class="toc-t">The run was green and three orders were gone</span><span class="toc-k">Live bench</span></a></li>
+    <li><a href="#p05"><span class="toc-n">05</span><span class="toc-t">I scanned 1,999 published n8n templates</span><span class="toc-k">Study, data attached</span></a></li>
+    <li><a href="#p06"><span class="toc-n">06</span><span class="toc-t">n8n Doctor, the scanner behind the 78%</span><span class="toc-k">Tool, runs in your browser</span></a></li>
   </ul>
 </nav>
 
@@ -225,6 +227,34 @@ a{color:var(--stamp)}
 <article class="entry" id="p04">
     <span class="entry-n">04</span>
   <div class="entry-main">
+    <p class="entry-kicker">Live bench &middot; runs in your browser</p>
+    <h2 class="entry-title">The run was green and three orders were gone</h2>
+  <p class="finding">Twenty orders, one flaky API, and the only thing that changes between the three runs is the error setting on one node.</p>
+  <div class="body">
+    <p>The CRM in this bench fails on exactly three of the twenty. ORD-1007 returns a 500 and works on the second attempt. ORD-1013 returns a 429 and works on the third. ORD-1018 returns a 500 every single time, because its payload is genuinely malformed. Two are transient and one is not, which is the whole point: retrying is not the same as handling.</p>
+    <p><strong>Config B is the dangerous one, and it is the setting most people end up with,</strong> because it is what you reach for when you want the red to stop. It does not fail at all as far as anything can tell you. The execution is marked success. The sheet has twenty rows in it. Three of those rows have no order in them. There is no red anywhere on the screen, so nobody looks, and the first time you find out is when a customer asks where their order went.</p>
+    <p>Config A fails loudly enough to notice. Fourteen orders never get attempted and the execution is flagged as an error, which is bad but visible to anyone who looks. Config C is not perfect either, and the page says so. ORD-1018 is broken and no amount of retrying fixes it. The difference is that C puts it in a named pile and tells a human its name.</p>
+    <p>The three settings are not invented. n8n's schema defines exactly three node-level error behaviours, and retry is an optional per-node field rather than a default, which is why the study below found 78 percent of templates without it. Both claims are cited on the page against a pinned commit, in a box kept separate from the demo.</p>
+    <p>It is deterministic. The same three records fail every time you press run, so you can check the arithmetic yourself.</p>
+  </div>
+  <dl class="entry-meta">
+    <dt>Run it</dt><dd><a href="https://michegz.github.io/silent-failure-bench/">michegz.github.io/silent-failure-bench</a></dd>
+    <dt>Source</dt><dd><a href="https://github.com/michegz/silent-failure-bench">github.com/michegz/silent-failure-bench</a></dd>
+    <dt>Skills</dt><dd>n8n &middot; Automation &middot; Error handling &middot; JavaScript &middot; API integration</dd>
+  </dl>
+    <a class="run" href="https://michegz.github.io/silent-failure-bench/">Run the bench &rarr;</a>
+  </div>
+  <aside class="entry-side">
+    <div class="limits">
+    <h4>What this does not catch</h4>
+    <p>This is not n8n. It is a model of three documented settings, written in JavaScript, running in your browser. No workflow was executed and no n8n instance was involved. The failure pattern is chosen, not observed: three out of twenty, two transient and one permanent, is a plausible mix that makes the mechanism visible, not a measurement of how often a CRM returns a 500. And it models one node. Real runs also lose data to credential expiry partway through, partial writes, and errors inside sub-workflows.</p>
+  </div>
+  </aside>
+</article>
+
+<article class="entry" id="p05">
+    <span class="entry-n">05</span>
+  <div class="entry-main">
     <p class="entry-kicker">Study &middot; raw data and recount script attached</p>
     <h2 class="entry-title">I scanned 1,999 published n8n templates. 78% have no error handling.</h2>
   <p class="finding">Most people start an n8n build by importing a template from the public library. I wanted to know what you are actually importing.</p>
@@ -250,11 +280,40 @@ a{color:var(--stamp)}
   </aside>
 </article>
 
+
+<article class="entry" id="p06">
+    <span class="entry-n">06</span>
+  <div class="entry-main">
+    <p class="entry-kicker">Tool &middot; Python and JavaScript, runs in your browser</p>
+    <h2 class="entry-title">n8n Doctor, the scanner behind the 78%</h2>
+  <p class="finding">The study published its numbers but not the rules that produced them. So you could check my arithmetic and not read my rules. That is the wrong half to publish.</p>
+  <div class="body">
+    <p>This is the other half. 16 checks emitting 17 rule ids, in Python and in JavaScript. Paste your own workflow export into the page and it scans in your browser. Nothing is uploaded, and there is no server to upload it to.</p>
+    <p>Two copies of the same logic is a place for quiet drift, so I did not trust the port. I ran both over a generated corpus and compared every field of every finding: rule, severity, node, detail text, consequence. <strong>91 files, 143 findings, all 17 rules exercised, zero diverging fields.</strong></p>
+    <p>That test earned its keep on the last file of the run, where the two disagreed. JavaScript always enumerates integer-like object keys first and in numeric order, whatever order they had in the file. So a parameters block written {"2": ..., "1": ...} walked differently in JavaScript than in Python, and any check that stops at the first match named the wrong parameter. Reading the code would not have found that. Diffing the two did. The port now ships its own JSON parser that keeps the source key order.</p>
+    <p>Then I attacked the test. A script corrupts the JavaScript one mutation at a time and asserts the differential test catches each one. Twelve mutations, and it caught eleven. Broadening a rule from "type ends with .webhook" to "type contains webhook" changed nothing, because no fixture used a lookalike type, so the rule's scope boundary was never tested and a port that quietly widened it would have shipped green. <strong>I published that miss rather than quietly fixing it.</strong> Two fixtures now pin the boundary and the probe fails without them.</p>
+    <p>One rule was added after the 1,999 scan finished, so it carries no hit rate anywhere on the page. I am not going to invent one.</p>
+  </div>
+  <dl class="entry-meta">
+    <dt>Run it</dt><dd><a href="https://michegz.github.io/n8n-doctor/">michegz.github.io/n8n-doctor</a></dd>
+    <dt>Source</dt><dd><a href="https://github.com/michegz/n8n-doctor">github.com/michegz/n8n-doctor</a></dd>
+    <dt>Skills</dt><dd>n8n &middot; Python &middot; JavaScript &middot; Software testing &middot; Static analysis</dd>
+  </dl>
+    <a class="run" href="https://michegz.github.io/n8n-doctor/">Scan your own workflow &rarr;</a>
+  </div>
+  <aside class="entry-side">
+    <div class="limits">
+    <h4>What this does not catch</h4>
+    <p>It never runs your workflow. It knows 17 failure shapes, so a clean result means none of those and nothing more. The network-facing node list is a list of name fragments rather than a capability model, which makes the silent-failure count a floor and not a total. Severity is my judgement, not a standard. There is no timeout check, and the page says why I added the webhook auth rule and not that one. It also cannot regenerate the 78% from scratch: the 1,999 workflow bodies were not kept and api.n8n.io disallows re-fetching them.</p>
+  </div>
+  </aside>
+</article>
+
 <footer class="colophon">
   <p class="sig">Built by <strong>Michelle Egl&eacute; Ward</strong>, automation engineer, Lafayette, Louisiana.
   I build workflow automations and the failure paths that go with them.
   <a class="sig-link" href="https://www.upwork.com/freelancers/~01b59471ec1e32fbdb">Hire me on Upwork</a></p>
-  <p class="credit">No analytics, no network calls, no data collected on any of these pages. The scenarios, names and numbers inside the benches are invented; each page says so. Source for all four is public on <a href="https://github.com/michegz">GitHub</a>.</p>
+  <p class="credit">No analytics, no network calls, no data collected on any of these pages. The scenarios, names and numbers inside the benches are invented; each page says so. Source for all six is public on <a href="https://github.com/michegz">GitHub</a>.</p>
 </footer>
 
 </div>
