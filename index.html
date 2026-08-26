@@ -108,13 +108,13 @@ a{color:var(--stamp)}
 
 <header class="masthead">
   <p class="masthead-id">Michelle Egl&eacute; Ward &middot; Lafayette, Louisiana</p>
-  <p class="masthead-state">Four benches, a study and the scanner behind it &middot; <a href="/portfolio/">read the full write-ups</a></p>
+  <p class="masthead-state">Five benches, a study and the scanner behind it &middot; <a href="/portfolio/">read the full write-ups</a></p>
 </header>
 
 <section class="hero">
   <div>
     <h1 class="hero-head">Anyone can say they<em>Find these things</em></h1>
-    <p class="hero-sub">So here are four, running. Each one proves a single specific way an automated workflow goes wrong, in your browser, with nothing to install and no signup. <strong>Below them is a study of 1,999 published workflows with its dataset attached, and the scanner that produced it.</strong></p>
+    <p class="hero-sub">So here are five, running. Each one proves a single specific way an automated workflow goes wrong, in your browser, with nothing to install and no signup. <strong>Below them is a study of 1,999 published workflows with its dataset attached, and the scanner that produced it.</strong></p>
     <p class="hero-sub"><strong>Every one of them also tells you what it does not catch.</strong> That part is not modesty. A control that claims to cover more than it does is how the thing fails in month two.</p>
   </div>
   <div class="who">
@@ -184,6 +184,19 @@ a{color:var(--stamp)}
       </div>
     </a>
 
+    <a class="bench" href="https://michegz.github.io/ghl-suspension-bench/">
+      <span class="bench-n">05</span>
+      <div class="bench-body">
+        <h3 class="bench-title">The account stopped sending and the pipeline kept moving</h3>
+        <p class="bench-claim">A GoHighLevel sub-account crosses its bounce threshold partway through a 500-contact send, so email is suspended for the whole sub-account. <strong>Every other feature keeps running, the pipeline reports 500 onboarded, and 199 of them were never emailed at all.</strong></p>
+        <dl class="bench-meta">
+          <dt>Proves</dt><dd>Wiring a bounce trigger tells you about the 25 that bounced and cannot name one of the 199 that were missed. GoHighLevel's own documentation says there is no direct way to find them.</dd>
+          <dt>Does not</dt><dd class="limit">It is a model of documented behaviour, not GoHighLevel. The list is invented, and the tiered minimum send count added in August 2026 is not modelled because the tiers are not published.</dd>
+        </dl>
+        <p class="bench-go">Run it, or check the twelve quotations &rarr;</p>
+      </div>
+    </a>
+
   </div>
 </section>
 
@@ -195,7 +208,7 @@ a{color:var(--stamp)}
   <div class="benches">
 
     <a class="bench" href="https://michegz.github.io/n8n-template-study/">
-      <span class="bench-n">05</span>
+      <span class="bench-n">06</span>
       <div class="bench-body">
         <h3 class="bench-title">I scanned 1,999 published n8n templates</h3>
         <p class="bench-claim">36,234 nodes, 5,665 findings. <strong>78% make network calls with no retry and no error branch, so when one fails nothing tells you.</strong> 129 of the 1,999 were clean.</p>
@@ -208,7 +221,7 @@ a{color:var(--stamp)}
     </a>
 
     <a class="bench" href="https://michegz.github.io/n8n-doctor/">
-      <span class="bench-n">06</span>
+      <span class="bench-n">07</span>
       <div class="bench-body">
         <h3 class="bench-title">n8n Doctor, the scanner behind the 78%</h3>
         <p class="bench-claim">The study published its numbers but not the rules that produced them. <strong>This is the scanner itself, in Python and in JavaScript, with a differential test that compares every field of every finding across 91 files and finds zero disagreements.</strong> Paste your own workflow and it runs in your browser.</p>

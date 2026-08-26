@@ -116,7 +116,7 @@ a{color:var(--stamp)}
 
 <section class="hero">
   <div>
-    <h1 class="hero-head">Six projects.<em>All six run.</em></h1>
+    <h1 class="hero-head">Seven projects.<em>All seven run.</em></h1>
     <p class="hero-sub">This is the long version. Each entry below is the whole write-up: what breaks, what I built, what it proves, and where it stops. <strong>Every one of them opens in your browser in about thirty seconds, with nothing to install and no signup.</strong></p>
     <p class="hero-sub">Three are live benches. One is a study of 1,999 published workflows that ships its own raw data and the script that rebuilds every number in it.</p>
   </div>
@@ -135,8 +135,9 @@ a{color:var(--stamp)}
     <li><a href="#p02"><span class="toc-n">02</span><span class="toc-t">Two endpoints checked the caller, one did not</span><span class="toc-k">Live bench</span></a></li>
     <li><a href="#p03"><span class="toc-n">03</span><span class="toc-t">I put the price in the URL and paid $50 for a $450 job</span><span class="toc-k">Live bench</span></a></li>
     <li><a href="#p04"><span class="toc-n">04</span><span class="toc-t">The run was green and three orders were gone</span><span class="toc-k">Live bench</span></a></li>
-    <li><a href="#p05"><span class="toc-n">05</span><span class="toc-t">I scanned 1,999 published n8n templates</span><span class="toc-k">Study, data attached</span></a></li>
-    <li><a href="#p06"><span class="toc-n">06</span><span class="toc-t">n8n Doctor, the scanner behind the 78%</span><span class="toc-k">Tool, runs in your browser</span></a></li>
+    <li><a href="#p05"><span class="toc-n">05</span><span class="toc-t">The account stopped sending and the pipeline kept moving</span><span class="toc-k">Live bench</span></a></li>
+    <li><a href="#p06"><span class="toc-n">06</span><span class="toc-t">I scanned 1,999 published n8n templates</span><span class="toc-k">Study, data attached</span></a></li>
+    <li><a href="#p07"><span class="toc-n">07</span><span class="toc-t">n8n Doctor, the scanner behind the 78%</span><span class="toc-k">Tool, runs in your browser</span></a></li>
   </ul>
 </nav>
 
@@ -255,6 +256,34 @@ a{color:var(--stamp)}
 <article class="entry" id="p05">
     <span class="entry-n">05</span>
   <div class="entry-main">
+    <p class="entry-kicker">Live bench &middot; runs in your browser</p>
+    <h2 class="entry-title">The account stopped sending and the pipeline kept moving</h2>
+  <p class="finding">A GoHighLevel sub-account emails an onboarding sequence to 500 contacts. 40 of the addresses are dead, which happens to every imported list.</p>
+  <div class="body">
+    <p>Partway through the send, GoHighLevel suspends email for the whole sub-account because the bounce rate crossed its documented threshold. <strong>Nothing else stops.</strong> Workflows keep running, contacts keep advancing, and the pipeline reports all 500 onboarded. 199 of them were never emailed at all.</p>
+    <p>The bench runs three configurations of the same send. A is the default path. C is the fix, and it is boring: verify the list first, then send, and nobody is missed.</p>
+    <p><strong>B is the one to look at, because B is the version a careful person builds.</strong> They know bounces matter, so they wire an Email Events trigger filtered on Bounced. It works. They get told about all 25 bounces by name. And it changes nothing about the loss, because the 199 that were never emailed did not bounce, did not trigger anything, and are indistinguishable from the ones that were delivered. GoHighLevel's own FAQ says there is no direct way to find them, and gives a manual export-and-tag workaround instead.</p>
+    <p>Every claim about GoHighLevel on the page is quoted from its own help articles, one source line each, in a box kept separate from the demo. Twelve quotations, checked against pinned snapshots by a script that exits non-zero if one has drifted by a character. Eight deliberate sabotages of the page, all eight caught, including the one that only moves a full stop to a comma.</p>
+    <p>The checker has one blind spot and the probe suite keeps it visible: it proves a quotation was said somewhere in the sources, not that the citation beside it names the right article. That blind spot was not theoretical. Checking the citations by hand found one on this page pointing at the wrong article, and it was fixed before publishing rather than after.</p>
+  </div>
+  <dl class="entry-meta">
+    <dt>Run it</dt><dd><a href="https://michegz.github.io/ghl-suspension-bench/">michegz.github.io/ghl-suspension-bench</a></dd>
+    <dt>Source</dt><dd><a href="https://github.com/michegz/ghl-suspension-bench">github.com/michegz/ghl-suspension-bench</a></dd>
+    <dt>Skills</dt><dd>GoHighLevel &middot; Automation &middot; Email deliverability &middot; JavaScript &middot; Technical writing</dd>
+  </dl>
+    <a class="run" href="https://michegz.github.io/ghl-suspension-bench/">Run the bench &rarr;</a>
+  </div>
+  <aside class="entry-side">
+    <div class="limits">
+    <h4>What this does not catch</h4>
+    <p>This is not GoHighLevel. It is a model of documented behaviour, written in JavaScript, running in your browser. No account was used and no email was sent. The list of 500 with 40 dead addresses is invented; the thresholds it crosses are documented. The tiered minimum send count introduced on 13 August 2026 is not modelled, because GoHighLevel does not publish the tiers, so on a real account with a lower bounce rate the lock would come later than it does here or not at all. And the claim that the pipeline keeps advancing rests on a quote about workflows in general, not on an observation of this exact sequence.</p>
+  </div>
+  </aside>
+</article>
+
+<article class="entry" id="p06">
+    <span class="entry-n">06</span>
+  <div class="entry-main">
     <p class="entry-kicker">Study &middot; raw data and recount script attached</p>
     <h2 class="entry-title">I scanned 1,999 published n8n templates. 78% have no error handling.</h2>
   <p class="finding">Most people start an n8n build by importing a template from the public library. I wanted to know what you are actually importing.</p>
@@ -281,8 +310,8 @@ a{color:var(--stamp)}
 </article>
 
 
-<article class="entry" id="p06">
-    <span class="entry-n">06</span>
+<article class="entry" id="p07">
+    <span class="entry-n">07</span>
   <div class="entry-main">
     <p class="entry-kicker">Tool &middot; Python and JavaScript, runs in your browser</p>
     <h2 class="entry-title">n8n Doctor, the scanner behind the 78%</h2>
@@ -313,7 +342,7 @@ a{color:var(--stamp)}
   <p class="sig">Built by <strong>Michelle Egl&eacute; Ward</strong>, automation engineer, Lafayette, Louisiana.
   I build workflow automations and the failure paths that go with them.
   <a class="sig-link" href="https://www.upwork.com/freelancers/~01b59471ec1e32fbdb">Hire me on Upwork</a></p>
-  <p class="credit">No analytics, no network calls, no data collected on any of these pages. The scenarios, names and numbers inside the benches are invented; each page says so. Source for all six is public on <a href="https://github.com/michegz">GitHub</a>.</p>
+  <p class="credit">No analytics, no network calls, no data collected on any of these pages. The scenarios, names and numbers inside the benches are invented; each page says so. Source for all seven is public on <a href="https://github.com/michegz">GitHub</a>.</p>
 </footer>
 
 </div>
